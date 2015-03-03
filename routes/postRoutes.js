@@ -1,5 +1,5 @@
-var Post = require('../schema/postSchema');
-var User = require('../schema/userSchema');
+var Post = require('../models/postSchema');
+var User = require('../models/userSchema');
 
 module.exports = function(router, appSecret) {
   router.post('/:name/newpost', function(req, res) {

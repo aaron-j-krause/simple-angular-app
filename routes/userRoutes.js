@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../schema/userSchema');
+var User = require('../models/userSchema');
 
-module.exports = function(router, passport, appSecret) {
+module.exports = function(router) {
 
   router.get('/', function(req, res) {
     var list = [];
@@ -23,4 +23,4 @@ module.exports = function(router, passport, appSecret) {
       res.json({'msg':'user saved'})
     });
   });
-});
+};

@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     jshint:{
@@ -31,7 +32,7 @@ module.exports = function(grunt) {
       build:{
         expand: true,
         cwd: 'app/',
-        src: '**/*.js',
+        src: '**/*.html',
         dest: 'build/',
         flatten: false,
         filter: 'isFile'
@@ -46,10 +47,14 @@ module.exports = function(grunt) {
       options:{
         transform:['debowerify']
       }
+    },
+    watch:{
+      files:['app/js/**/*.js', 'app/index.html'],
+      tasks:['clean', 'browserify', 'copy']
     }
   });
 
   grunt.registerTask('default', ['jshint', 'jscs']);
-  grunt.registerTask('build', ['clean', 'browserify', 'copy'])
+  grunt.registerTask('build', ['clean', 'browserify:dev', 'copy'])
 
 };
