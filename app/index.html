@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+  }
+  </style>
   <meta charset="UTF-8">
   <title>THIS THING</title>
 </head>
 <body data-ng-app="postApp">
-  <main><p>{{test}}</p></main>
-  <script src="bundle.js">
-  </script>
+  <main data-ng-controller="postController" data-ng-init="getAllPosts()">
+    <form name="newpost" data-ng-submit="createPost(newPost)">
+      <input type="text" name="newpost" data-ng-model="newPost.body">
+      <input type="submit" name="newpost">New Post</input>
+    </form>
+    <ul ng-cloak>
+      <li data-ng-repeat="post in posts">
+        <p>{{post.body}}</p>
+        <p>posted by: {{post.author}}</p>
+        <button data-ng-click="editToggle(post)">Edit</button>
+        <form name="editpost" data-ng-submit="editPost(post)" data-ng-if="post.edit">
+          <input type="text" name="editpost" data-ng-model="post.body">
+          <button data-ng-click="deletePost(post)" name="editpost">delete post</button>
+          <input type="submit" name="editpost">
+        </form>
+      </li>
+    </ul>
+  </main>
+  <script src="bundle.js"></script>
 </body>
 </html>

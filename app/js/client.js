@@ -1,7 +1,7 @@
 require('angular/angular');
 
+var addPostController = require('./posts/post-controller')
+
 var postApp = angular.module('postApp', [])
 
-postApp.controller('postAppMainController', ['$scope', function($scope) {
-
-}])
+addPostController(postApp);

@@ -3,7 +3,7 @@ var User = require('../models/userSchema');
 
 module.exports = function(router, appSecret) {
   router.post('/:name/newpost', function(req, res) {
-    var post = new Post({body: req.body.body});
+    var post = new Post({body: req.body.body, author: req.body.user});
     User.findOne({name: req.params.name}, function(err, user) {
       if (err) return res.status(500).send('Could not find user');
       post.userId = user._id;
@@ -17,20 +17,20 @@ module.exports = function(router, appSecret) {
     Post.findOneAndUpdate({_id: req.params.post}, {body: req.body.body},
       function(err, post) {
       if (err) return res.status(500).send('Could not find user');
-      res.send('post updated');
+      res.json({msg: 'post updated'});
     });
   });
 
   router.delete('/:post/deletepost', function(req, res) {
     Post.findOneAndRemove({_id: req.params.post}, function(err, post) {
       if (err) return res.status(500).send('Could not find user');
-      res.send('post removed');
+      res.json(post);
     });
   });
 
   router.get('/', function(req, res) {
     Post.find(function(err, posts) {
-      if (err) return rres.status(500).send('Could not find posts');
+      if (err) return res.status(500).send('Could not find posts');
       res.json(posts);
     });
   });
