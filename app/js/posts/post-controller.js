@@ -1,5 +1,4 @@
 
-
 module.exports = function(app){
 app.controller('postController', ['$scope', '$http', function($scope, $http) {
   $scope.posts = [];

@@ -63,14 +63,15 @@ module.exports = function(grunt) {
     },
 
     karma:{
-      unit: configFile: 'karma.conf.js'
+      unit:{
+        configFile: 'karma.conf.js'
+      }
     }
   });
 
   grunt.registerTask('default', ['jshint', 'jscs']);
-  grunt.registerTask('build', ['clean', 'browserify:dev', 'copy'])
+  grunt.registerTask('build', ['clean', 'browserify:dev', 'copy']);
   grunt.registerTask('build:test', ['build:test']);
   grunt.registerTask('test:client', ['browserify:karmatest', 'karma:unit']);
 
-  }
 };
