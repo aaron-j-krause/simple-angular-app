@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         jshintrc:true
       },
     files:['*.js', 'lib/**/*.js', 'models/**/*.js',
-      'test/**/*-test.js', 'routes/**/*.js']
+      'test/**/*-test.js', 'routes/**/*.js', 'app/**/*.js']
     },
 
     jscs: {
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         },
         files: {
           src: ['*.js', 'lib/**/*.js', 'test/**/*-test.js',
-            'models/**/*.js', 'routes/**/*.js']
+            'models/**/*.js', 'routes/**/*.js', 'app/**/*.js']
         }
       }
     },
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         dest: 'build/bundle.js'
       },
       karmatest:{
-        src: ['test/karma_tests/*_test.js'],
+        src: ['test/karma_tests/*-test.js'],
         dest: 'test/karma_tests/karma_test_bundle.js'
       },
       options:{

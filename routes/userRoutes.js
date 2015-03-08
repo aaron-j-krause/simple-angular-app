@@ -20,7 +20,7 @@ module.exports = function(router) {
     newUser.save(function(err, user) {
       if (err) return res.status(500).send({msg: 'could not create user'});
 
-      res.json({'msg':'user saved'})
+      res.json({'msg':'user saved'});
     });
   });
 };

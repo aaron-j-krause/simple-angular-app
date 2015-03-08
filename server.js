@@ -24,7 +24,7 @@ assignUserRoutes(userRouter);
 
 app.use('/user', userRouter);
 app.use('/posts', postRouter);
-app.use(express.static(__dirname + '/build'))
+app.use(express.static(__dirname + '/build'));
 
 //db
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/dev_db');
