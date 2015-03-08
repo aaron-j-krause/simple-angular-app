@@ -50,5 +50,29 @@ describe('posts controller', function(){
       expect($scope.posts[0]._id).toBe(1);
     })
 
+    it('should edit posts', function(){
+      $httpBackend.expectPUT('/posts/1/editpost').respond(200, {_id: 1, body: 'edit post'})
+
+      var postController = $ControllerConstructor('postController', {$scope: $scope});
+      var post = {_id: 1, body: 'edit post'}
+      $scope.editPost(post)
+      $httpBackend.flush();
+
+      expect(post._id).toBe(1);
+
+    })
+
+    it('should delete posts', function() {
+      $httpBackend.expectDELETE('/posts/1/deletepost').respond(200, {msg: 'message deleted'});
+
+      var postController = $ControllerConstructor('postController', {$scope: $scope});
+      var post = {_id: 1, body: 'test post', author: 'dave'}
+      $scope.posts.push(post);
+      $scope.deletePost(post);
+      $httpBackend.flush();
+
+      expect($scope.posts.length).toBe(0);
+    })
+
   })
 })
