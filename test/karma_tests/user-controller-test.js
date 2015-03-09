@@ -21,8 +21,8 @@ describe('users controller', function() {
 
   });
 
-  describe('user REST', function(){
-    beforeEach(angular.mock.inject(function(_$httpBackend_){
+  describe('user REST', function() {
+    beforeEach(angular.mock.inject(function(_$httpBackend_) {
       $httpBackend = _$httpBackend_;
     }));
 
@@ -38,16 +38,17 @@ describe('users controller', function() {
       $httpBackend.flush();
 
       expect($scope.userList[0].name).toBe('dave');
-    })
+    });
 
     it('should create a new user', function() {
       $ControllerConstructor('userController', {$scope: $scope});
-      $httpBackend.expectPOST('/user/newuser').respond(200, {_id: 1, name: 'dave'});
+      $httpBackend.expectPOST('/user/newuser')
+        .respond(200, {_id: 1, name: 'dave'});
       $scope.createUser({name: 'dave'});
       $httpBackend.flush();
 
       expect($scope.userList[0]).toBe('dave');
 
-    })
-  })
+    });
+  });
 });
