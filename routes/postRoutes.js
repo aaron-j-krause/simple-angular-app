@@ -1,11 +1,13 @@
 var Post = require('../models/postSchema');
 var User = require('../models/userSchema');
 
-module.exports = function(router, appSecret) {
+module.exports = function(router) {
+  //on base route /posts
   router.post('/:name/newpost', function(req, res) {
     var post = new Post({body: req.body.body, author: req.body.user});
     User.findOne({name: req.params.name}, function(err, user) {
-      if (err) return res.status(500).send('Could not find user');
+      if (err || user === null)
+        return res.status(500).send('Could not find user');
       post.userId = user._id;
       post.save(function(err, post) {
         res.json(post);

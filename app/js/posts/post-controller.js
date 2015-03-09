@@ -2,6 +2,7 @@
 module.exports = function(app) {
   app.controller('postController', ['$scope', '$http', function($scope, $http) {
     $scope.posts = [];
+    $scope.userErr = false;
 
     $scope.getAllPosts = function() {
       $http.get('/posts/')
@@ -14,13 +15,14 @@ module.exports = function(app) {
     };
 
     $scope.createPost = function(post) {
-      post.user = 'dave';
-      $http.post('/posts/dave/newpost', post)
+      $scope.userErr = false;
+      $http.post('/posts/' + post.user + '/newpost', post)
         .success(function(data) {
           $scope.posts.push(data);
         })
         .error(function(data) {
           console.log('error creating post:', data);
+          $scope.userErr = true;
         });
       $scope.newPost = {};
     };

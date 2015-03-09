@@ -1,11 +1,12 @@
 process.env.MONGO_URI = 'mongodb://localhost/test_db';
+process.env.TEST_MODE = true;
 require('../server');
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
 var mongoose = require('mongoose');
-var User = require('../lib/schema/userSchema');
+var User = require('../models/userSchema');
 chai.use(chaihttp);
 
 describe('User API', function() {
@@ -18,17 +19,14 @@ describe('User API', function() {
       .post('/user/newuser')
       .send({name:'testguy', password:'password', email:'email@example.com'})
       .end(function(err, res) {
-        token = res.body.token;
         chai.request('localhost:3000')
           .post('/posts/testguy/newpost')
-          .set('eat', token)
-          .send({author: 'testguy', body: 'USE POST', eat: token})
+          .send({author: 'testguy', body: 'USE POST'})
           .end(function(err, res) {
             editPostId = res.body._id;
             chai.request('localhost:3000')
               .post('/posts/testguy/newpost')
-              .set('eat', token)
-              .send({author: 'testguy', body: 'DELETE POST', eat: token})
+              .send({author: 'testguy', body: 'DELETE POST'})
               .end(function(err, res) {
                 delPostId = res.body._id;
                 done();
@@ -56,7 +54,6 @@ describe('User API', function() {
   it('should create a new post', function(done) {
     chai.request('localhost:3000')
       .post('/posts/testguy/newpost')
-      .set('eat', token)
       .send({author: 'testguy', body: 'test post'})
       .end(function(err, res) {
         expect(err).to.eql(null);
@@ -68,7 +65,6 @@ describe('User API', function() {
   it('should update a post', function(done) {
     chai.request('localhost:3000')
       .put('/posts/' + editPostId + '/editpost')
-      .set('eat', token)
       .send({body: 'USED POST'})
       .end(function(err, res) {
         expect(err).to.eql(null);

@@ -12,7 +12,7 @@ var bodyParser = require('body-parser');
 //passport
 app.set('appSecret', process.env.SECRET || 'chaaaaaange');
 
-app.use(morgan('dev'));
+if (!(process.env.TEST_MODE)) app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 //routes

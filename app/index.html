@@ -5,26 +5,45 @@
   [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
   }
+  span {
+    color: red;
+  }
   </style>
   <meta charset="UTF-8">
   <title>THIS THING</title>
 </head>
 <body data-ng-app="postApp">
   <main data-ng-controller="postController" data-ng-init="getAllPosts()">
-    <form name="newpost" data-ng-submit="createPost(newPost)">
-      <input type="text" name="newpost" data-ng-model="newPost.body">
-      <input type="submit" name="newpost">New Post</input>
+    <!--user form-->
+    <form name="newuser" data-ng-controller="userController"
+      data-ng-init="getUsers()" data-ng-submit="createUser(newUser)">
+      <input type="text" name="newuser" placeholder="User Name" data-ng-model="newUser.name">
+      <input type="text" name="newuser" placeholder="email address" data-ng-model="newUser.email">
+      <input type="password" name="newuser" placeholder="password" data-ng-model="newUser.password">
+      <input type="submit" name="newuser"> New User</input>
     </form>
-    <ul ng-cloak>
+
+    <!--post form-->
+    <form name="newpost" data-ng-submit="createPost(newPost)">
+      <input type="text" name="newpost" placeholder="teeeext" data-ng-model="newPost.body">
+      <input type="text" name="newpost" placeholder="author" data-ng-model="newPost.user">
+      <input type="submit" name="newpost">
+        New Post <span data-ng-cloak data-ng-if="userErr">user not found</span>
+      </input>
+    </form>
+
+    <ul data-ng-cloak>
       <li data-ng-repeat="post in posts">
         <p>{{post.body}}</p>
         <p>posted by: {{post.author}}</p>
         <button data-ng-click="editToggle(post)">Edit</button>
+        <!-- edit form -->
         <form name="editpost" data-ng-submit="editPost(post)" data-ng-if="post.edit">
           <input type="text" name="editpost" data-ng-model="post.body">
           <button data-ng-click="deletePost(post)" name="editpost">delete post</button>
           <input type="submit" name="editpost">
         </form>
+
       </li>
     </ul>
   </main>

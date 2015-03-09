@@ -1,26 +1,18 @@
 process.env.MONGO_URI = 'mongodb://localhost/test_db';
+process.env.TEST_MODE = true;
 require('../server');
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
 var mongoose = require('mongoose');
-var User = require('../lib/schema/userSchema');
+var User = require('../models/userSchema');
 chai.use(chaihttp);
 
 describe('User API', function() {
-  var token;
-  before(function(done) {
-    chai.request('localhost:3000')
-      .post('/user/newuser')
-      .send({name:'testguy', password:'password', email:'email@example.com'})
-      .end(function(err, res) {
-        token = res.body.token;
-        done();
-      });
-  });
 
   after(function(done) {
+    process.env.TEST_MODE = false;
     mongoose.connection.db.dropDatabase(function() {
       done();
     });
@@ -34,7 +26,6 @@ describe('User API', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.token).to.exist; //jshint ignore:line
         done();
       });
   });
@@ -50,15 +41,4 @@ describe('User API', function() {
       });
   });
 
-  it('should get a token on login', function(done) {
-    chai.request('localhost:3000')
-      .get('/user/login')
-      .auth('email@example.com', 'password')
-      .end(function(err, res) {
-        expect(err).to.eql(null);
-        expect(res).to.have.status(200);
-        expect(res.body.token).to.exist; //jshint ignore:line
-        done();
-      });
-  });
 });
