@@ -14,8 +14,6 @@ module.exports = function(app) {
         });
     };
 
-    $scope.userList = $scope.getUsers();
-
     $scope.createUser = function(user) {
       $http.post('/user/newuser', user)
         .success(function(data) {
