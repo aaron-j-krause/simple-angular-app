@@ -1,0 +1,11 @@
+<form name="newuser" data-ng-controller="userController" class="user-form"
+  data-ng-init="getUsers()" data-ng-submit="createUser(newUser)">
+  <input type="text" name="newuser" placeholder="User Name" data-ng-model="newUser.name">
+  <input type="text" name="newuser" placeholder="email address" data-ng-model="newUser.email">
+  <input type="password" name="newuser" placeholder="password" data-ng-model="newUser.password">
+  <input type="submit" value="Create User" name="newuser">
+  <p>
+    <span class='user-success' ng-if="userSuccess == true">User created successfully</span>
+    <span class='user-error' ng-if="userSuccess == false">Error creating user</span>
+  </p>
+</form>

@@ -1,0 +1,65 @@
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+body {
+  background-color: #996600;
+}
+main {
+  width: 35%;
+  margin: 0 auto;
+  background-color: #FFFFCC;
+}
+
+.user-form {
+  background-color: #FFCC66;
+  width: 100%;
+  border: 1px solid black;
+}
+.user-form input{
+  margin-bottom: 10px;
+  height: 15px;
+}
+.user-form  .user-error{
+  color: red;
+}
+.user-form .user-success{
+  color: green;
+}
+.post-list {
+  list-style: none inside;
+  width: 100%;
+  padding-left: 0px;
+  margin-left: 0px;
+
+}
+
+.post-list li {
+  list-style: none inside;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  border: 1px solid #339900;
+  border-radius: 5px;
+  background-color: #CCFFCC;
+  width: 100%;
+}
+.post-list li p {
+  margin-left: 15px;
+}
+.post-list li button {
+  margin-left: 90%;
+  width:10%;
+}
+
+.edit-form {
+  margin-top: 20px;
+}
+
+.post-form {
+  width: 100%;
+  background-color: #FFCC66;
+}
+.post-form span {
+  color: red;
+}
+

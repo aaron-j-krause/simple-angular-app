@@ -1,0 +1,7 @@
+<form name="newpost" data-ng-submit="createPost(newPost)" class="post-form">
+  <input type="text" name="newpost" placeholder="teeeext" data-ng-model="newPost.body">
+  <input type="text" name="newpost" placeholder="author" data-ng-model="newPost.user">
+  <input type="submit" value = "New Post" name="newpost">
+  <span data-ng-cloak data-ng-if="userErr">user not found</span>
+  </input>
+</form>
