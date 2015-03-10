@@ -1,29 +1,25 @@
 module.exports = function(app) {
-  app.controller('userController', ['$scope', '$http', function($scope, $http) {
+  app.controller('userController', ['$scope', 'resource',
+    function($scope, resource) {
 
-    $scope.userList = [];
-    $scope.newUserErr = false;
+      $scope.userList = [];
+      $scope.newUserErr = false;
+      User = resource('/user');
 
-    $scope.getUsers = function() {
-      $http.get('/user/')
-        .success(function(data) {
+      $scope.getUsers = function() {
+        User.getAll(function(err, data) {
+          if (err) console.log(err);
           $scope.userList = data;
-        })
-        .error(function(data) {
-          console.log(data);
         });
-    };
+      };
 
-    $scope.createUser = function(user) {
-      $http.post('/user/newuser', user)
-        .success(function(data) {
-          $scope.userList.push(user.name);
-        })
-        .error(function(data) {
-          console.log('error creating user:', data);
+      $scope.createUser = function(user) {
+        User.save(function(err, user) {
+          if (err) console.log(err);
+          $scope.userList.push(user);
         });
-      $scope.newUser = {};
-    };
+        $scope.newUser = {};
+      };
 
-  }]);
+    }]);
 };

@@ -16,7 +16,7 @@ module.exports = function(app) {
 
     $scope.createPost = function(post) {
       $scope.userErr = false;
-      $http.post('/posts/' + post.user + '/newpost', post)
+      $http.post('/posts/' + post.user, post)
         .success(function(data) {
           $scope.posts.push(data);
         })
@@ -28,7 +28,7 @@ module.exports = function(app) {
     };
 
     $scope.editPost = function(post) {
-      $http.put('/posts/' + post._id + '/editpost', post)
+      $http.put('/posts/' + post._id, post)
       .success(function(data) {
         post.edit = false;
       })
@@ -38,7 +38,7 @@ module.exports = function(app) {
     };
 
     $scope.deletePost = function(post) {
-      $http.delete('/posts/' + post._id + '/deletepost')
+      $http.delete('/posts/' + post._id)
       .success(function(data) {
         $scope.posts.splice($scope.posts.indexOf(post), 1);
       })

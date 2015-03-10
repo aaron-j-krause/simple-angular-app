@@ -11,7 +11,7 @@ module.exports = function(router) {
     });
   });
 
-  router.post('/newuser', function(req, res) {
+  router.post('/', function(req, res) {
     var newUser = new User({name: req.body.name, age: req.body.age});
 
     newUser.basic.email = req.body.email;

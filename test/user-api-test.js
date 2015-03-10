@@ -20,7 +20,7 @@ describe('User API', function() {
 
   it('should create a new user', function(done) {
     chai.request('localhost:3000')
-      .post('/user/newuser')
+      .post('/user/')
       .send({name: 'testguytwo', password: 'password',
             email:'anotheremail@example.com'})
       .end(function(err, res) {

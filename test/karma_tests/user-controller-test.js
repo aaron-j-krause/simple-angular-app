@@ -42,12 +42,12 @@ describe('users controller', function() {
 
     it('should create a new user', function() {
       $ControllerConstructor('userController', {$scope: $scope});
-      $httpBackend.expectPOST('/user/newuser')
+      $httpBackend.expectPOST('/user/')
         .respond(200, {_id: 1, name: 'dave'});
       $scope.createUser({name: 'dave'});
       $httpBackend.flush();
 
-      expect($scope.userList[0]).toBe('dave');
+      expect($scope.userList[0].name).toBe('dave');
 
     });
   });

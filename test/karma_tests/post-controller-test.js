@@ -43,7 +43,7 @@ describe('posts controller', function() {
     });
 
     it('should create a post', function() {
-      $httpBackend.expectPOST('/posts/dave/newpost')
+      $httpBackend.expectPOST('/posts/dave')
         .respond(200, {_id: 1, body: 'test post'});
 
       $ControllerConstructor('postController', {$scope: $scope});
@@ -54,7 +54,7 @@ describe('posts controller', function() {
     });
 
     it('should edit posts', function() {
-      $httpBackend.expectPUT('/posts/1/editpost')
+      $httpBackend.expectPUT('/posts/1')
         .respond(200, {_id: 1, body: 'edit post'});
 
       $ControllerConstructor('postController', {$scope: $scope});
@@ -66,7 +66,7 @@ describe('posts controller', function() {
     });
 
     it('should delete posts', function() {
-      $httpBackend.expectDELETE('/posts/1/deletepost')
+      $httpBackend.expectDELETE('/posts/1')
         .respond(200, {msg: 'message deleted'});
 
       $ControllerConstructor('postController', {$scope: $scope});

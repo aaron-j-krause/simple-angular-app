@@ -3,7 +3,7 @@ var User = require('../models/userSchema');
 
 module.exports = function(router) {
   //on base route /posts
-  router.post('/:name/newpost', function(req, res) {
+  router.post('/:name', function(req, res) {
     var post = new Post({body: req.body.body, author: req.body.user});
     User.findOne({name: req.params.name}, function(err, user) {
       if (err || user === null)
@@ -15,7 +15,7 @@ module.exports = function(router) {
     });
   });
 
-  router.put('/:post/editpost', function(req, res) {
+  router.put('/:post', function(req, res) {
     Post.findOneAndUpdate({_id: req.params.post}, {body: req.body.body},
       function(err, post) {
       if (err) return res.status(500).send('Could not find user');
@@ -23,7 +23,7 @@ module.exports = function(router) {
     });
   });
 
-  router.delete('/:post/deletepost', function(req, res) {
+  router.delete('/:post', function(req, res) {
     Post.findOneAndRemove({_id: req.params.post}, function(err, post) {
       if (err) return res.status(500).send('Could not find user');
       res.json(post);

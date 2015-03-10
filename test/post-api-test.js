@@ -10,22 +10,21 @@ var User = require('../models/userSchema');
 chai.use(chaihttp);
 
 describe('User API', function() {
-  var token;
   var userId;
   var editPostId;
   var delPostId;
   before(function(done) {
     chai.request('localhost:3000')
-      .post('/user/newuser')
+      .post('/user/')
       .send({name:'testguy', password:'password', email:'email@example.com'})
       .end(function(err, res) {
         chai.request('localhost:3000')
-          .post('/posts/testguy/newpost')
+          .post('/posts/testguy')
           .send({author: 'testguy', body: 'USE POST'})
           .end(function(err, res) {
             editPostId = res.body._id;
             chai.request('localhost:3000')
-              .post('/posts/testguy/newpost')
+              .post('/posts/testguy')
               .send({author: 'testguy', body: 'DELETE POST'})
               .end(function(err, res) {
                 delPostId = res.body._id;
@@ -53,7 +52,7 @@ describe('User API', function() {
 
   it('should create a new post', function(done) {
     chai.request('localhost:3000')
-      .post('/posts/testguy/newpost')
+      .post('/posts/testguy')
       .send({author: 'testguy', body: 'test post'})
       .end(function(err, res) {
         expect(err).to.eql(null);
@@ -64,7 +63,7 @@ describe('User API', function() {
 
   it('should update a post', function(done) {
     chai.request('localhost:3000')
-      .put('/posts/' + editPostId + '/editpost')
+      .put('/posts/' + editPostId)
       .send({body: 'USED POST'})
       .end(function(err, res) {
         expect(err).to.eql(null);
@@ -75,7 +74,7 @@ describe('User API', function() {
 
   it('should delete a post', function(done) {
     chai.request('localhost:3000')
-      .delete('/posts/' + delPostId + '/deletepost')
+      .delete('/posts/' + delPostId)
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
