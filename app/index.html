@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-  }
-  span {
-    color: red;
-  }
-  </style>
+
   <meta charset="UTF-8">
-  <title>THIS THING</title>
+  <title>VERY IMPORTANT FORUM</title>
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+
 </head>
 <body data-ng-app="postApp">
   <main data-ng-controller="postController" data-ng-init="getAllPosts()">
     <!--user form-->
     <div data-create-user-directive></div>
 
-    <!--post form-->
-    <div data-create-post-directive></div>
-
-    <ul data-ng-cloak>
-      <li data-ng-repeat="post in posts">
+    <ul data-ng-cloak class="post-list">
+      <li data-ng-repeat="post in posts" data-ng-init="post.editButtonText = 'Edit'">
         <p>{{post.body}}</p>
         <p>posted by: {{post.author}}</p>
-        <button data-ng-click="editToggle(post)">Edit</button>
+        <button data-ng-click="editToggle(post)">{{post.editButtonText}}</button>
+        <p></p>
         <!-- edit form -->
-        <form name="editpost" data-ng-submit="editPost(post)" data-ng-if="post.edit">
+        <form class="edit-form" name="editpost"
+          data-ng-submit="editPost(post)" data-ng-if="post.edit">
           <input type="text" name="editpost" data-ng-model="post.body">
-          <button data-ng-click="deletePost(post)" name="editpost">delete post</button>
+          <input type="button" data-ng-click="deletePost(post)"
+            name="editpost" value="Delele Post">
           <input type="submit" name="editpost">
         </form>
 
       </li>
     </ul>
+
+    <!--post form-->
+    <div data-create-post-directive></div>
   </main>
   <script src="bundle.js"></script>
 </body>

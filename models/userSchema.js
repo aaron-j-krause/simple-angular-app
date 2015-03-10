@@ -4,10 +4,10 @@ var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
   basic:{
-    email: String,
-    password: String
+    email: {type: String, required: true},
+    password: {type: String, required: true}
   },
-  name: String
+  name: {type: String, required: true}
 });
 
 module.exports = mongoose.model('User', userSchema);

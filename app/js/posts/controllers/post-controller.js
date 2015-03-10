@@ -5,6 +5,7 @@ module.exports = function(app) {
       var Post = resource('/posts');
 
       $scope.posts = [];
+      $scope.editButtonText = 'Edit';
       $scope.userErr = false;
 
       $scope.getAllPosts = function() {
@@ -30,6 +31,7 @@ module.exports = function(app) {
         Post.edit(post, post._id, function(err, data) {
           if (err) return console.log(err);
           post.edit = false;
+          post.editButtonText = 'Edit';
         });
       };
 
@@ -42,9 +44,11 @@ module.exports = function(app) {
 
       $scope.editToggle = function(post) {
         if (post.edit) {
+          post.editButtonText = 'Edit';
           post.edit = false;
           post.body = post.oldBody;
         } else {
+          post.editButtonText = 'Cancel';
           post.edit = true;
           post.oldBody = post.body;
         }
