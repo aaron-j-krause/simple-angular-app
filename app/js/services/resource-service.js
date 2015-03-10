@@ -12,8 +12,41 @@ module.exports = function(app) {
               callback(data);
             });
         },
-        save: function(callback, data) {
-          $http.post(resourceName + '/', data)
+        save: function(data, params, callback) {
+          if (!callback) {
+            callback = params;
+            params = '';
+          }
+
+          $http.post(resourceName + '/' + params, data)
+            .success(function(data) {
+              callback(null, data);
+            })
+            .error(function(data) {
+              callback(data);
+            });
+        },
+        edit: function(data, params, callback) {
+          if (!callback) {
+            callback = params;
+            params = '';
+          }
+
+          $http.put(resourceName + '/' + params, data)
+            .success(function(data) {
+              callback(null, data);
+            })
+            .error(function(data) {
+              callback(data);
+            });
+        },
+        delete: function(data, params, callback) {
+          if (!callback) {
+            callback = params;
+            params = '';
+          }
+
+          $http.delete(resourceName + '/' + params, data)
             .success(function(data) {
               callback(null, data);
             })

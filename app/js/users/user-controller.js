@@ -14,9 +14,9 @@ module.exports = function(app) {
       };
 
       $scope.createUser = function(user) {
-        User.save(function(err, user) {
-          if (err) console.log(err);
-          $scope.userList.push(user);
+        User.save(user, function(err, data) {
+          if (err) return console.log(err);
+          $scope.userList.push(data);
         });
         $scope.newUser = {};
       };

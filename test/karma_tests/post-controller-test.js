@@ -49,7 +49,6 @@ describe('posts controller', function() {
       $ControllerConstructor('postController', {$scope: $scope});
       $scope.createPost({body: 'test post', user:'dave'});
       $httpBackend.flush();
-
       expect($scope.posts[0]._id).toBe(1);
     });
 

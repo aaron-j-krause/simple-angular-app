@@ -12,7 +12,7 @@ module.exports = function(router) {
   });
 
   router.post('/', function(req, res) {
-    var newUser = new User({name: req.body.name, age: req.body.age});
+    var newUser = new User({name: req.body.name});
 
     newUser.basic.email = req.body.email;
     newUser.basic.password = req.body.password;
@@ -20,7 +20,7 @@ module.exports = function(router) {
     newUser.save(function(err, user) {
       if (err) return res.status(500).send({msg: 'could not create user'});
 
-      res.json({'msg':'user saved'});
+      res.json({_id: user._id, email: user.basic.email, name: user.name});
     });
   });
 };
